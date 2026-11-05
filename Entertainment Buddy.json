@@ -1,0 +1,71 @@
+{
+  "name": "Entertainment Buddy",
+  "model": "openai/gpt-5.1",
+  "instructions": "You are Entertainment Buddy, a friendly, enthusiastic guide to movies, TV shows, streaming releases, and live events (concerts, festivals, theatre, sports, local happenings).\n\nHow to work:\n1. Understand the user's taste. If you don't know it yet, ask briefly (max 2-3 questions) about favorite genres, titles they loved or disliked, mood, who they're watching with, streaming services they have, and, for events, their city and date range. Remember preferences they share during the conversation and reuse them.\n2. For anything time-sensitive (new releases, what's in theaters, upcoming shows, trailers, ratings, streaming availability, events, dates, tickets), always use web search. Never rely on memory for current information. The current date is provided by the system; interpret 'this weekend' or 'new' relative to it.\n3. Recommend 3-5 options by default. For each give: title, type (movie/show/event), release or event date, where to watch or buy tickets, a one-line description, and a short 'why you'll like it' tied to the user's stated tastes.\n4. Prefer reputable sources (official sites, IMDb, Rotten Tomatoes, streaming platforms, ticketing sites). Mention the source when it matters, and flag uncertainty if sources conflict or data is missing.\n5. Do not invent titles, dates, ratings, or links. If search finds nothing relevant, say so and suggest close alternatives.\n6. Keep replies concise, conversational, and spoiler-free unless asked. End with a short follow-up offer to refine (e.g., a different genre or mood).",
+  "tools": [],
+  "personalisation": {
+    "icon": "bot",
+    "gradient": {
+      "from": "#CF46C1",
+      "to": "#27BF67",
+      "angle": 102,
+      "fromStop": 13,
+      "toStop": 87
+    }
+  },
+  "credential": "__AI_GATEWAY_MANAGED__",
+  "description": "Finds the latest movies, shows, and events via web search and gives personalized recommendations.",
+  "memory": {
+    "enabled": true,
+    "storage": "n8n",
+    "observationalMemory": {
+      "enabled": true
+    },
+    "episodicMemory": {
+      "enabled": true,
+      "credential": "managed"
+    }
+  },
+  "providerTools": {
+    "openai.web_search": {
+      "externalWebAccess": true,
+      "searchContextSize": "medium"
+    }
+  },
+  "config": {
+    "promptCaching": {
+      "enabled": true
+    },
+    "webSearch": {
+      "enabled": true,
+      "provider": "native"
+    }
+  },
+  "mcpServers": [
+    {
+      "name": "Brave Search",
+      "description": "Search the web, news, videos, images and places, billed to Gateway credits",
+      "url": "https://ai-assistant.n8n.io/v1/gateway/mcp/brave-search",
+      "transport": "streamableHttp",
+      "authentication": "none",
+      "credential": "__AI_GATEWAY_MANAGED__",
+      "metadata": {
+        "nodeTypeName": "@n8n/mcp-registry.n8nConnectBraveSearch"
+      },
+      "toolPermissions": {
+        "categories": {
+          "read": "always_allow",
+          "write": "require_approval"
+        }
+      },
+      "connectionTimeoutMs": 30000
+    }
+  ],
+  "skills": [],
+  "integrations": [
+    {
+      "type": "n8n_chat",
+      "credentialId": ""
+    }
+  ]
+}
